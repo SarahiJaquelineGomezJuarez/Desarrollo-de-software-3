@@ -1,0 +1,261 @@
+// Aplicación de Inventario en Swift//
+
+// Se crea un diccionario llamado inventario //
+// La clave será el nombre del producto (String)//
+// y el valor será una tupla que guarda cantidad (Int) y precio (Double).//
+var inventario: [String: (cantidad: Int, precio: Double)] = [:]
+
+// Se muestra un mensaje de bienvenida al usuario.//
+print("¡Bienvenido a la aplicación de inventario!")
+
+// Se solicita al usuario que escriba su nombre.//
+print("Por favor, ingresa tu nombre:")
+
+// Se lee el nombre ingresado.//
+// Si el usuario no escribe nada, se asigna "Usuario" por defecto.//
+let nombre = readLine() ?? "Usuario"
+
+// Se imprime un saludo personalizado con el nombre capturado.//
+print("\nHola, \(nombre) 👋 Bienvenido/a al sistema.\n")
+
+// Variable booleana que controlará si el programa sigue ejecutándose.//
+var continuar = true
+
+// Inicia el ciclo principal del menú.//
+// El programa seguirá mostrando el menú mientras continuar sea verdadero.//
+while continuar {
+    
+    // Se imprime el menú principal con las opciones disponibles.//
+    print("""
+    
+    ===== MENÚ =====
+    1. Registrar un artículo
+    2. Ver lista de artículos
+    3. Consultar existencias
+    4. Salir
+    =================
+    Selecciona una opción (1-4, solo números):
+    """)
+    
+    // Se lee la opción escrita por el usuario.//
+    // Se valida que sea un número entero y que esté entre 1 y 4.//
+    if let opcion = readLine(), let opcionNum = Int(opcion), (1...4).contains(opcionNum) {
+        
+        // Se usa switch para evaluar qué opción eligió el usuario.//
+        switch opcionNum {
+            
+        case 1:
+            // Opción 1: Registrar un artículo.//
+            
+            // Variable para controlar si el usuario quiere seguir agregando artículos.//
+            var agregarOtro = true
+            
+            // Mientras agregarOtro sea verdadero, seguirá pidiendo nuevos productos.//
+            while agregarOtro {
+                
+                // Se solicita el nombre del producto.//
+                print("\n\(nombre), ingresa el nombre del producto:")
+                
+                // Se valida que el nombre del producto no esté vacío.//
+                if let producto = readLine(), !producto.isEmpty {
+                    
+                    // Se solicita la cantidad del producto.//
+                    print("Ingresa la cantidad:")
+                    
+                    // Se valida que la cantidad sea un número entero.//
+                    if let cantidadStr = readLine(), let cantidad = Int(cantidadStr) {
+                        
+                        // Se solicita el precio del producto.//
+                        print("Ingresa el precio:")
+                        
+                        // Se valida que el precio sea un número decimal.//
+                        if let precioStr = readLine(), let precio = Double(precioStr) {
+                            
+                            // Si el producto ya existe, suma la cantidad nueva.
+                            // Si no existe, lo crea con cantidad inicial en 0 y precio 0.0.//
+                            inventario[producto, default: (cantidad: 0, precio: 0.0)].cantidad += cantidad
+                            
+                            // Se actualiza el precio del producto.//
+                            inventario[producto]!.precio = precio
+                            
+                            // Se muestra un mensaje de confirmación.//
+                            print("✔ \(nombre), '\(producto)' registrado con \(cantidad) unidades a \(precio).\n")
+                            
+                        } else {
+                            // Mensaje si el precio no es válido.//
+                            print("❌ Precio no válido.\n")
+                        }
+                        
+                    } else {
+                        // Mensaje si la cantidad no es válida.//
+                        print("❌ Cantidad no válida.\n")
+                    }
+                    
+                } else {
+                    // Mensaje si el nombre del producto está vacío.//
+                    print("❌ Nombre de producto no válido.\n")
+                }
+                
+                // Variable que controla si la respuesta si/no es válida.//
+                var respuestaValida = false
+                
+                // Este ciclo obliga al usuario a responder solo "si" o "no".//
+                while !respuestaValida {
+                    
+                    // Se pregunta si desea agregar otro artículo.//
+                    print("¿Deseas agregar otro artículo? (si/no)")
+                    
+                    // Se lee la respuesta y se convierte a minúsculas.//
+                    if let resp = readLine()?.lowercased() {
+                        
+                        // Si responde "no", termina el registro y vuelve al menú.//
+                        if resp == "no" {
+                            agregarOtro = false
+                            respuestaValida = true
+                            
+                        // Si responde "si", vuelve a pedir otro producto.//
+                        } else if resp == "si" {
+                            respuestaValida = true
+                            
+                        } else {
+                            // Si escribe otra cosa, se le vuelve a pedir.//
+                            print("❌ Respuesta no válida. Solo debes responder 'si' o 'no'.")
+                        }
+                    }
+                }
+            }
+            
+        case 2:
+            // Opción 2: Ver lista de artículos.//
+            
+            // Variable para controlar si desea volver a ver la lista.//
+            var verOtraVez = true
+            
+            // Mientras verOtraVez sea verdadero, seguirá mostrando la lista.//
+            while verOtraVez {
+                
+                // Título de la sección.//
+                print("\n📦 Lista de productos:")
+                
+                // Se valida si el inventario está vacío.//
+                if inventario.isEmpty {
+                    print("No hay productos registrados, \(nombre).\n")
+                } else {
+                    // Se recorren todos los productos del inventario.//
+                    for (producto, info) in inventario {
+                        print("- \(producto): Cantidad: \(info.cantidad), Precio: \(info.precio)")
+                    }
+                    print("")
+                }
+                
+                // Variable que valida respuesta si/no.//
+                var respuestaValida = false
+                
+                // Se repite hasta que el usuario responda correctamente.//
+                while !respuestaValida {
+                    
+                    // Se pregunta si desea volver a ver la lista.//
+                    print("¿Deseas ver la lista otra vez? (si/no)")
+                    
+                    // Se lee la respuesta.//
+                    if let resp = readLine()?.lowercased() {
+                        
+                        // Si responde no, termina esta sección y vuelve al menú.//
+                        if resp == "no" {
+                            verOtraVez = false
+                            respuestaValida = true
+                            
+                        // Si responde si, vuelve a mostrar la lista.//
+                        } else if resp == "si" {
+                            respuestaValida = true
+                            
+                        } else {
+                            // Si responde otra cosa, se vuelve a pedir.//
+                            print("❌ Respuesta no válida. Solo debes responder 'si' o 'no'.")
+                        }
+                    }
+                }
+            }
+            
+        case 3:
+            // Opción 3: Consultar existencias.//
+            
+            // Variable para controlar si se desea hacer otra consulta.//
+            var consultarOtro = true
+            
+            // Mientras consultarOtro sea verdadero, seguirá preguntando productos.//
+            while consultarOtro {
+                
+                // Título de la sección.//
+                print("\n🔍 Consulta de existencias")
+                
+                // Se solicita el nombre del producto a consultar.//
+                print("Ingresa el nombre del producto:")
+                
+                // Se valida que el nombre no esté vacío.//
+                if let producto = readLine(), !producto.isEmpty {
+                    
+                    // Se busca el producto en el inventario.
+                    if let info = inventario[producto] {
+                        
+                        // Si existe, muestra cantidad y precio.//
+                        print("✔ \(nombre), hay \(info.cantidad) unidades de '\(producto)' a \(info.precio).\n")
+                        
+                    } else {
+                        // Si no existe, se informa al usuario.//
+                        print("❌ El producto no existe en el inventario.\n")
+                    }
+                } else {
+                    // Si no escribe nombre válido.//
+                    print("❌ Nombre de producto no válido.\n")
+                }
+                
+                // Variable que valida respuesta si/no.//
+                var respuestaValida = false
+                
+                // Se repite hasta que responda correctamente.//
+                while !respuestaValida {
+                    
+                    // Se pregunta si desea consultar otra existencia.//
+                    print("¿Deseas consultar otra existencia? (si/no)")
+                    
+                    // Se lee la respuesta.//
+                    if let resp = readLine()?.lowercased() {
+                        
+                        // Si responde no, sale y vuelve al menú.//
+                        if resp == "no" {
+                            consultarOtro = false
+                            respuestaValida = true
+                            
+                        // Si responde si, repite la consulta.//
+                        } else if resp == "si" {
+                            respuestaValida = true
+                            
+                        } else {
+                            // Si responde otra cosa, se vuelve a pedir.//
+                            print("❌ Respuesta no válida. Solo debes responder 'si' o 'no'.")
+                        }
+                    }
+                }
+            }
+            
+        case 4:
+            // Opción 4: Salir del programa.//
+            
+            // Se muestra mensaje de despedida.//
+            print("\nGracias por usar el sistema, \(nombre). ¡Hasta pronto! 👋")
+            
+            // Se cambia la variable para terminar el ciclo principal.//
+            continuar = false
+            
+        default:
+            // Este caso no debería ocurrir porque ya se validó el rango 1...4.//
+            print("❌ Opción no válida, \(nombre). Intenta nuevamente.\n")
+        }
+        
+    } else {
+        //// Si el usuario escribe letras, símbolos o números fuera del rango 1 al 4,//
+        // se muestra este mensaje y vuelve a aparecer el menú.//
+        print("❌ Entrada no válida. Solo se permiten números del 1 al 4.\n")
+    }
+}
