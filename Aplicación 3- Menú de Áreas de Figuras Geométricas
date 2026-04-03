@@ -1,0 +1,266 @@
+// Aplicación de Áreas de Figuras Geométricas en Swift //
+
+// Se muestra un mensaje de bienvenida al usuario. //
+print("¡Bienvenido/a a la aplicación de cálculo de áreas!")
+
+// Se solicita el nombre del usuario. //
+print("Por favor, ingresa tu nombre:")
+
+// Se lee el nombre ingresado. //
+// Si el usuario no escribe nada, se asigna "Usuario" por defecto. //
+let nombre = readLine() ?? "Usuario"
+
+// Se imprime un saludo personalizado. //
+print("\nHola, \(nombre) 👋 Bienvenido/a al sistema de áreas.\n")
+
+// Variable booleana que controlará si el programa sigue ejecutándose. //
+var continuar = true
+
+// Inicia el ciclo principal del menú. //
+// El programa seguirá mostrando el menú mientras continuar sea verdadero. //
+while continuar {
+    
+    // Se imprime el menú principal con las opciones disponibles. //
+    print("""
+    
+    ===== MENÚ DE ÁREAS =====
+    1. Área del cuadrado
+    2. Área del rectángulo
+    3. Área del triángulo
+    4. Área del círculo
+    5. Salir
+    =========================
+    Selecciona una opción (1-5, solo números):
+    """)
+    
+    // Se lee la opción escrita por el usuario. //
+    // Se valida que sea un número entero y que esté entre 1 y 5. //
+    if let opcion = readLine(), let opcionNum = Int(opcion), (1...5).contains(opcionNum) {
+        
+        // Se usa switch para evaluar qué opción eligió el usuario. //
+        switch opcionNum {
+            
+        case 1:
+            // Opción 1: Calcular el área del cuadrado. //
+            
+            // Variable para controlar si desea repetir esta operación. //
+            var calcularOtro = true
+            
+            // Mientras calcularOtro sea verdadero, seguirá calculando áreas de cuadrados. //
+            while calcularOtro {
+                
+                // Se solicita el valor del lado. //
+                print("\n\(nombre), ingresa el valor del lado del cuadrado:")
+                
+                // Se valida que sea un número decimal. //
+                if let ladoStr = readLine(), let lado = Double(ladoStr) {
+                    
+                    // Se calcula el área del cuadrado. //
+                    let area = lado * lado
+                    
+                    // Se muestra el resultado. //
+                    print("✔ El área del cuadrado es: \(area)\n")
+                    
+                } else {
+                    // Mensaje si el valor ingresado no es válido. //
+                    print("❌ Valor no válido. Debes ingresar un número.\n")
+                }
+                
+                // Variable para validar la respuesta si/no. //
+                var respuestaValida = false
+                
+                // Este ciclo obliga al usuario a responder solo si o no. //
+                while !respuestaValida {
+                    print("¿Deseas calcular otra área de cuadrado? (si/no)")
+                    
+                    if let resp = readLine()?.lowercased() {
+                        if resp == "no" {
+                            calcularOtro = false
+                            respuestaValida = true
+                        } else if resp == "si" {
+                            respuestaValida = true
+                        } else {
+                            print("❌ Respuesta no válida. Solo debes responder 'si' o 'no'.")
+                        }
+                    }
+                }
+            }
+            
+        case 2:
+            // Opción 2: Calcular el área del rectángulo. //
+            
+            // Variable para controlar si desea repetir esta operación. //
+            var calcularOtro = true
+            
+            // Mientras calcularOtro sea verdadero, seguirá calculando áreas de rectángulos. //
+            while calcularOtro {
+                
+                // Se solicita el valor de la base. //
+                print("\n\(nombre), ingresa el valor de la base del rectángulo:")
+                
+                if let baseStr = readLine(), let base = Double(baseStr) {
+                    
+                    // Se solicita el valor de la altura. //
+                    print("Ingresa el valor de la altura del rectángulo:")
+                    
+                    if let alturaStr = readLine(), let altura = Double(alturaStr) {
+                        
+                        // Se calcula el área del rectángulo. //
+                        let area = base * altura
+                        
+                        // Se muestra el resultado. //
+                        print("✔ El área del rectángulo es: \(area)\n")
+                        
+                    } else {
+                        // Mensaje si la altura no es válida. //
+                        print("❌ Altura no válida. Debes ingresar un número.\n")
+                    }
+                    
+                } else {
+                    // Mensaje si la base no es válida. //
+                    print("❌ Base no válida. Debes ingresar un número.\n")
+                }
+                
+                // Variable para validar la respuesta si/no. //
+                var respuestaValida = false
+                
+                // Se repite hasta que el usuario responda correctamente. //
+                while !respuestaValida {
+                    print("¿Deseas calcular otra área de rectángulo? (si/no)")
+                    
+                    if let resp = readLine()?.lowercased() {
+                        if resp == "no" {
+                            calcularOtro = false
+                            respuestaValida = true
+                        } else if resp == "si" {
+                            respuestaValida = true
+                        } else {
+                            print("❌ Respuesta no válida. Solo debes responder 'si' o 'no'.")
+                        }
+                    }
+                }
+            }
+            
+        case 3:
+            // Opción 3: Calcular el área del triángulo. //
+            
+            // Variable para controlar si desea repetir esta operación. //
+            var calcularOtro = true
+            
+            // Mientras calcularOtro sea verdadero, seguirá calculando áreas de triángulos. //
+            while calcularOtro {
+                
+                // Se solicita el valor de la base. //
+                print("\n\(nombre), ingresa el valor de la base del triángulo:")
+                
+                if let baseStr = readLine(), let base = Double(baseStr) {
+                    
+                    // Se solicita el valor de la altura. //
+                    print("Ingresa el valor de la altura del triángulo:")
+                    
+                    if let alturaStr = readLine(), let altura = Double(alturaStr) {
+                        
+                        // Se calcula el área del triángulo. //
+                        let area = (base * altura) / 2
+                        
+                        // Se muestra el resultado. //
+                        print("✔ El área del triángulo es: \(area)\n")
+                        
+                    } else {
+                        // Mensaje si la altura no es válida. //
+                        print("❌ Altura no válida. Debes ingresar un número.\n")
+                    }
+                    
+                } else {
+                    // Mensaje si la base no es válida. //
+                    print("❌ Base no válida. Debes ingresar un número.\n")
+                }
+                
+                // Variable para validar la respuesta si/no. //
+                var respuestaValida = false
+                
+                // Se repite hasta que el usuario responda correctamente. //
+                while !respuestaValida {
+                    print("¿Deseas calcular otra área de triángulo? (si/no)")
+                    
+                    if let resp = readLine()?.lowercased() {
+                        if resp == "no" {
+                            calcularOtro = false
+                            respuestaValida = true
+                        } else if resp == "si" {
+                            respuestaValida = true
+                        } else {
+                            print("❌ Respuesta no válida. Solo debes responder 'si' o 'no'.")
+                        }
+                    }
+                }
+            }
+            
+        case 4:
+            // Opción 4: Calcular el área del círculo. //
+            
+            // Variable para controlar si desea repetir esta operación. //
+            var calcularOtro = true
+            
+            // Mientras calcularOtro sea verdadero, seguirá calculando áreas de círculos. //
+            while calcularOtro {
+                
+                // Se solicita el valor del radio. //
+                print("\n\(nombre), ingresa el valor del radio del círculo:")
+                
+                if let radioStr = readLine(), let radio = Double(radioStr) {
+                    
+                    // Se define el valor de pi. //
+                    let pi = 3.1416
+                    
+                    // Se calcula el área del círculo. //
+                    let area = pi * radio * radio
+                    
+                    // Se muestra el resultado. //
+                    print("✔ El área del círculo es: \(area)\n")
+                    
+                } else {
+                    // Mensaje si el radio no es válido. //
+                    print("❌ Radio no válido. Debes ingresar un número.\n")
+                }
+                
+                // Variable para validar la respuesta si/no. //
+                var respuestaValida = false
+                
+                // Se repite hasta que el usuario responda correctamente. //
+                while !respuestaValida {
+                    print("¿Deseas calcular otra área de círculo? (si/no)")
+                    
+                    if let resp = readLine()?.lowercased() {
+                        if resp == "no" {
+                            calcularOtro = false
+                            respuestaValida = true
+                        } else if resp == "si" {
+                            respuestaValida = true
+                        } else {
+                            print("❌ Respuesta no válida. Solo debes responder 'si' o 'no'.")
+                        }
+                    }
+                }
+            }
+            
+        case 5:
+            // Opción 5: Salir del programa. //
+            
+            // Se muestra mensaje de despedida. //
+            print("\nGracias por usar el sistema, \(nombre). ¡Hasta pronto! 👋")
+            
+            // Se cambia la variable para terminar el ciclo principal. //
+            continuar = false
+            
+        default:
+            // Este caso no debería ocurrir porque ya se validó el rango 1...5. //
+            print("❌ Opción no válida, \(nombre). Intenta nuevamente.\n")
+        }
+        
+    } else {
+        // Si el usuario escribe letras, símbolos o números fuera del rango, //
+        // se muestra este mensaje y vuelve a aparecer el menú. //
+        print("❌ Entrada no válida. Solo se permiten números del 1 al 5.\n")
+    }
+}
